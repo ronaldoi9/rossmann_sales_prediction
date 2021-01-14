@@ -1,5 +1,11 @@
 # Virtualenv
 venv/
 
+# Token Id
+telegram_bot/config/
+
+# Telegram data
+telegram_bot/data/
+
 # Jupyter Notebook Checkpoints
 .ipynb_checkpoints
