@@ -33,11 +33,11 @@
 
 In this project, the CFO summoned all store managers to deliver the sales forecast for up to six weeks advance.
 
-So, many of these managers contacted me for consult the data to make the prediction for their stores. So, I went looking for the real stakeholder to understand the main reason for this sales forecast. When talking to managers, I was told that was a request from the CFO at a meeting with all managers.
+Many of these managers contacted me for consult the data to make the prediction for their stores. So, I went looking for the real stakeholder to understand the main reason for this sales forecast. Talking to managers, they told me that was a request from the CFO at a meeting with all managers.
 
-When discussing with the CFO, he informs me that wants to know the store sales forecast because wants to renovate them, and he would like to know how much money will have in cash to carry out the construction. So, i understand the root cause and start looking for the data that will help me make this prediction.
+When discussing with the CFO, he informs me that wants to know the store sales forecast because wants to renovate them, and he would like to know how much money will have in cash to carry out the construction. I understod the main problem and start looking for the data that will help me make this prediction.
 
-As this is a problem originating from a Kaggle competition, the data was made available through the platform, and it is not necessary to use extraction from databases and other sources.
+As this is a problem originating from a Kaggle competition, the data are available through their platform, and it is not necessary to use extraction from databases and other sources.
 
 **Motivation:** The CFO requested this solution during a monthly results meeting.
 
@@ -49,7 +49,7 @@ As this is a problem originating from a Kaggle competition, the data was made av
 
 ## Methodology <p id="methodology"></p>
 
-In this project I will use the CRISP-DS (*Cross Industry Standard Process for Data Science*) development methodology, which consists of cycles of interaction and continuous improvement. The image below shows the steps taken to solve the problem.
+In this project i used the CRISP-DS (*Cross Industry Standard Process for Data Science*) development methodology, which consists of cycles of interaction and continuous improvement. The image below shows the steps taken to solve the problem.
 
 ![CRISP CYCLE](https://user-images.githubusercontent.com/40616142/104822560-189ce580-5822-11eb-8491-7d4ee6698ba3.png)
 
@@ -69,7 +69,7 @@ The data used in this project are available through the Kaggle platform, and can
 
 ## Data Cleaning <p id="data_cleaning"></p>
 
-Consists of cleaning the dataset downloaded from the previous step, performing operations such as:
+Cleaning the dataset downloaded from the previous step, performing operations such as:
 
 ### Data Description <p id="data_description"></p>
 
