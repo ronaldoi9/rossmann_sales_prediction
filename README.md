@@ -29,7 +29,7 @@
   - <a href="#telegram_bot">Telegram Bot</a>
 --- 
 
-## Business Questions <p id="bquestions"></p>
+## BUSINESS QUESTIONS <p id="bquestions"></p>
 
 In this project, the CFO summoned all store managers to deliver the sales forecast for up to six weeks advance.
 
@@ -47,7 +47,7 @@ As this is a problem originating from a Kaggle competition, the data are availab
 
 **Solution Format:** Daily sales for the next 6 weeks, prediction problem, time series, mobile delivery (Telegram).
 
-## Methodology <p id="methodology"></p>
+## METHODOLOGY <p id="methodology"></p>
 
 In this project i used the CRISP-DS (*Cross Industry Standard Process for Data Science*) development methodology, which consists of cycles of interaction and continuous improvement. The image below shows the steps taken to solve the problem.
 
@@ -59,15 +59,15 @@ Main advantages of CRISP-DS:
 - Value delivery speed.
 - Mapping of all possible project problems.
 
-## Business Understanding <p id="bunderstanding"></p>
+## BUSINESS UNDERSTANDING <p id="bunderstanding"></p>
 
 This step consists in the identification and understanding of the company's business demand, seeking to understand the true Stakeholder and whether their request can really be carried out. As previously presented, we know that the stakeholder is the CFO, and the solution format will consist of a stores forecast sales using a time series.
 
-## Data Collect <p id="data_collect"></p>
+## DATA COLLECT <p id="data_collect"></p>
 
 The data used in this project are available through the Kaggle platform, and can be find [here](https://www.kaggle.com/c/rossmann-store-sales/data). But, if it were a real company environment, this data would be collected through database queries, and other sources of information.
 
-## Data Cleaning <p id="data_cleaning"></p>
+## DATA CLEANING <p id="data_cleaning"></p>
 
 Cleaning the dataset downloaded from the previous step, performing operations such as:
 
@@ -133,7 +133,7 @@ In this step we will excluding variables such as:
 - `open`: as we only filter when stores are open, this column is irrelevant in our analysis.
 - `promo_interval` and` month_map` were used to create new columns and not will be used anymore.
 
-## Exploratory Data Analysis <p id="data_exploration"></p>
+## EXPLORATORY DATA ANALYSIS <p id="data_exploration"></p>
 
 The exploratory data analysis proposes to analyze how the variables map the phenomenon we want to model, and what is the strength of this impact. Proposed basically for 3 objectives:
 
@@ -192,7 +192,43 @@ To analyze the correlation between categorical variables, the Cramer's V method 
 
 ![categorical_corr](https://user-images.githubusercontent.com/40616142/104974439-ca7d1300-59d6-11eb-8dc2-b28185125615.png)
 
+## DATA MODELLING <p id="data_modelling"></p>
+
+A modelagem dos dados é divida em duas etapas que são essenciais para a aplicação dos algoritmos de machine learning. A primeira etapa consiste na Preparação dos Dados e a segunda é a Seleção das Features mais relevantes.
+
+### Data Preparation <p id="data_preparation"></p>
+
+Analyzing the table with basic statistics of the numerical variables, it was notice that the metric *range* are very wide, indicating that the data need a normalization or a rescale. Therefore, the data preparation aims to analyze which metric will be applied to carry out this standardization. This method was divided into 3 stages:
+
+- **1. Normalization**
+
+Checking the numerical features graphs in **Univariate analysis** section, it was concluded that the data we worked on does not have a normal distribution. Therefore, normalization of these will not be applied. This step would be used if any characteristic has a normal distribution pattern, which is not the case.
+
+- **2. Rescaling**
+
+The standardization method defined in this project will be the Rescaling. To identify which rescaling transformation method to use, i  check the boxplot variables to verify which will be the best. Analyzing the graphs below, it was noticed that for features `competition_distance` and `competition_time_month` the most suitable method will be Robust Scaler, due to its high number of outliers, since the features `year` and `promo_time_week` the transformation method will be Min Max Scaler, as they do not have as many outliers.
+
+![rescaling](https://user-images.githubusercontent.com/40616142/105102831-39697300-5a8e-11eb-9adc-7bd522db7820.png)
 
 
+- **3. Transformation**
 
+- **3.1 Encoding**
 
+In this step I'll use some popular methods used to perform categorical variable encoding, such as *One Hot Encoding, Label Encoding and Ordinal Encoding*. As we are in the first cycle of CRISP-DS, i can encoding according to my guess for each feature. Remembering that nothing prevents you from using the same type of encoding for all variables, which can be revised in the second cycle.
+
+- **3.2 Response Variable Transformation**
+
+The response variable does not have a normal distribution, so a logarithmic transformation will be applied to `sales` feature, making it closer to a normal one, as shown in the image below.
+
+![sales_tranformation](https://user-images.githubusercontent.com/40616142/105103375-476bc380-5a8f-11eb-8159-12c15cdcb1ac.png)
+
+- **3.3 Nature Transformation**
+
+Finally, the last transformation carried out on this dataset will be the  nature transformation. That will be applied to time variables that are repeated, since we want to preserve the cyclical effect of these characteristics, such as `weekday`,` month`, `day` and` week_year`.
+
+### Feature Selection <p id="feat_selection"></p>
+
+The first step before selecting the features, will be to identify which dates will be part of the training and test dataset. The last 6 weeks will be the test data and the training data will be the entire dataset up to the discovered deadline. Check the notebook for more information.
+
+The selection of features is not a simple task, so in this project I'll use a very effective tool for this purpose, the *Boruta Algorithm*. This algorithm seeks to identify which features will be most relevant to the Machine Learning model, but its identification process demands a long processing time.
