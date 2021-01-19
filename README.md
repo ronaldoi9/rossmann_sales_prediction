@@ -1,4 +1,6 @@
-# Rossman Prediction Sales
+# Forecast Rossmann Store Sales
+
+![rossmann](https://user-images.githubusercontent.com/40616142/104977231-ca344600-59dd-11eb-94c4-26f431bc2802.png)
 
 ---
 ## Contents <p id="contents"></p>
