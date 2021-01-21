@@ -232,3 +232,64 @@ Finally, the last transformation carried out on this dataset will be the  nature
 The first step before selecting the features, will be to identify which dates will be part of the training and test dataset. The last 6 weeks will be the test data and the training data will be the entire dataset up to the discovered deadline. Check the notebook for more information.
 
 The selection of features is not a simple task, so in this project I'll use a very effective tool for this purpose, the *Boruta Algorithm*. This algorithm seeks to identify which features will be most relevant to the Machine Learning model, but its identification process demands a long processing time.
+
+## MACHINE LEARNING ALGORITHMS <p id="machine_learning"></p>
+
+It is this project stage that involves the part that most data scientists like to work on, the use of machine learning algorithms. All the previous steps were designed to maximize the algorithms efficiency.
+
+### Machine Learning Modelling <p id="machine_learning_modelling"></p>
+
+**Average Model**
+
+Well, to choose which model to use, we must start from a simple model that solves our problem, this should always be the goal for any type of resolution, so as not to "kill an ant using a war tank". My initial modeling will be an algorithm that calculates the average sales for each store, and then evaluate the algorithm performance.
+
+| Model Name	| MAE	| MAPE	| RMSE |
+| ----------- | ----------- |  ----------- |  ----------- |
+| Average Model |	1354.800353 |	0.455051 |	1835.135542
+
+It is noticed that using this approach the ** RMSE ** (Root Mean Squared Error) was very high. But, this performance will serve as a baseline to compare with the other algorithms.
+
+**Linear Regression Model**
+
+I intend to use an algorithm very popular in the data science world, the Linear Regression. Using this algorithm I intend to identify if the problem we are trying to model, has a linear behavior. The table below shows the performance obtained using this algorithm.
+
+| Model Name	| MAE	| MAPE	| RMSE |
+| ----------- | ----------- |  ----------- |  ----------- |
+| Linear Regression	| 1867.089774 |	0.292694	| 2671.049215
+
+For our surprise, the RMSE value surpassed our simple average model, indicating that this problem has non-linear characteristics, requiring use non-linear algorithms. But for comparative purposes I'll use another linear aspect algorithm to compare with a simple linear regression.
+
+**Linear Regression Regularized Model**
+
+The Regularized Linear Regression algorithm has a linear characteristic, but unlike the previous one, it uses an alpha parameter that allows to regulate a line inclination using weights. The table below shows a performance of this algorithm.
+
+| Model Name	| MAE	| MAPE	| RMSE |
+| ----------- | ----------- |  ----------- |  ----------- |
+| Linear Regression Regularized |	1891.704881	| 0.289106	| 2744.451737
+
+**Random Forest Regressor**
+
+Then I start using non-linear algorithms to perform a better  problem modeling, starting with the Random Forest Regressor, which is a tree-based algorithm that is very popular for classification, but is also very powerful for making value predictions. The table below shows the results obtained with this algorithm.
+
+| Model Name	| MAE	| MAPE	| RMSE |
+| ----------- | ----------- |  ----------- |  ----------- |
+| Random Forest Regressor |	686.894635 |	0.101039 |	1024.295227
+
+**XGBoost Regressor**
+
+Another non-linear algorithm that was built using the concept of trees, this algorithm became very popular to be implemented by competitors who won Kaggle competitions, from then on it was highly disseminated in the data science community. The table below shows the results obtained with this algorithm.
+
+| Model Name	| MAE	| MAPE	| RMSE |
+| ----------- | ----------- |  ----------- |  ----------- |
+| XGBoost Regressor | 843.112293 |	0.122609	| 1250.952637
+
+But, the performance tables generated above were formed using the dataset without cross-validation, which brings the real algorithm performance. This approach makes the model use all partitions of the training dataset, exposing the algorithm to greater variations in data, consequently increasing reliability on results. The table below shows the algorithms performances using a cross-validation, which will serve as the basis for choosing the final algorithm.
+
+| Model Name	| MAE	| MAPE	| RMSE |
+| ----------- | ----------- |  ----------- |  ----------- |
+| Random Forest Regressor	| 837.6 +/- 216.27	| 0.12 +/- 0.02	| 1256.95 +/- 317.35
+|	XGBoost Regressor	| 1030.28 +/- 167.19	| 0.14 +/- 0.02	| 1478.26 +/- 229.79
+|	Linear Regression	| 2081.73 +/- 295.63	| 0.3 +/- 0.02	| 2952.52 +/- 468.37
+|	Lasso	| 2116.38 +/- 341.5	| 0.29 +/- 0.01	| 3057.75 +/- 504.26
+
+Analyzing non-linear algorithms performance, was notice the 2 algorithms had the best results were **Random Forest Regressor** and **XGBoost Regressor**, both got a very similar RMSE and much smaller than linear algorithms. Therefore, i need to use my intuition as a data scientist choose which model will be used in production. Analyzing the the time it took the Random Forest Regressor to be trained, and the possible financial cost this algorithm can bring to be implemented, considering the difference between it and the **XGBoost Regressor** is not to high compared to the others models, I decided to choose **XGBoost** as the ideal algorithm to put the model into production and adjust the parameter to improve its performance.
