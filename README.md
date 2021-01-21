@@ -265,7 +265,7 @@ The Regularized Linear Regression algorithm has a linear characteristic, but unl
 
 | Model Name	| MAE	| MAPE	| RMSE |
 | ----------- | ----------- |  ----------- |  ----------- |
-| Linear Regression Regularized |	1891.704881	| 0.289106	| 2744.451737
+| Linear Regression Regularized - Lasso |	1891.704881	| 0.289106	| 2744.451737
 
 **Random Forest Regressor**
 
@@ -283,9 +283,9 @@ Another non-linear algorithm that was built using the concept of trees, this alg
 | ----------- | ----------- |  ----------- |  ----------- |
 | XGBoost Regressor | 843.112293 |	0.122609	| 1250.952637
 
-But, the performance tables generated above were formed using the dataset without cross-validation, which brings the real algorithm performance. This approach makes the model use all partitions of the training dataset, exposing the algorithm to greater variations in data, consequently increasing reliability on results. The table below shows the algorithms performances using a cross-validation, which will serve as the basis for choosing the final algorithm.
+But, the performance tables generated above were formed using the dataset without cross-validation, which brings the real algorithm performance. This approach makes the model use all partitions of the training dataset, exposing the algorithm to greater variations in data, consequently increasing reliability on results. The table below shows the algorithms performances using cross-validation.
 
-| Model Name	| MAE	| MAPE	| RMSE |
+| Model Name	| MAE CV	| MAPE CV	| RMSE CV |
 | ----------- | ----------- |  ----------- |  ----------- |
 | Random Forest Regressor	| 837.6 +/- 216.27	| 0.12 +/- 0.02	| 1256.95 +/- 317.35
 |	XGBoost Regressor	| 1030.28 +/- 167.19	| 0.14 +/- 0.02	| 1478.26 +/- 229.79
