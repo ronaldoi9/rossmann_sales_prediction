@@ -292,4 +292,61 @@ But, the performance tables generated above were formed using the dataset withou
 |	Linear Regression	| 2081.73 +/- 295.63	| 0.3 +/- 0.02	| 2952.52 +/- 468.37
 |	Lasso	| 2116.38 +/- 341.5	| 0.29 +/- 0.01	| 3057.75 +/- 504.26
 
-Analyzing non-linear algorithms performance, was notice the 2 algorithms had the best results were **Random Forest Regressor** and **XGBoost Regressor**, both got a very similar RMSE and much smaller than linear algorithms. Therefore, i need to use my intuition as a data scientist choose which model will be used in production. Analyzing the the time it took the Random Forest Regressor to be trained, and the possible financial cost this algorithm can bring to be implemented, considering the difference between it and the **XGBoost Regressor** is not to high compared to the others models, I decided to choose **XGBoost** as the ideal algorithm to put the model into production and adjust the parameter to improve its performance.
+Analyzing non-linear algorithms performance, was notice the 2 algorithms had the best results were **Random Forest Regressor** and **XGBoost Regressor**, both have a very similar RMSE and much smaller than linear algorithms. Therefore, i need to use my intuition as a data scientist to choose which model will be used in production. Analyzing the the time it took the Random Forest Regressor to be trained, and the possible financial cost this algorithm can bring to be implemented, considering the difference between it and the **XGBoost Regressor** is not to high compared to the others models, I decided to choose **XGBoost** as the ideal algorithm to put the model into production and adjust the parameter to improve its performance.
+
+### Hyperparameter Fine Tuning <p id="hyperparameter_fine_tuning"></p>
+
+After choosing the algorithm to be optimized, the next step is to choose which approach to use to define the best parameters, some are very popular as **Grid Search** which defines a search space as a grid of hyperparameter values and evaluate every position in the grid. **Random Search** defines a search space as a bounded domain of hyperparameter values and randomly sample points in that domain. I choose to use Random Search due to the time that Grid Search can take to generate the best parameters, and in a business environment, time is money.
+
+| Parameters	| Value |
+| ----------- | ----------- |
+| n_estimators | 3000 
+| eta | 0.03 
+| max_depth | 5
+| subsample | 0.7
+| colsample_bytee | 0.7
+| min_child_weight | 3
+
+Using these parameters, the XGBoost algorithm has a much more accurate performance than the previous one. The table below shows a new algorithm performance using the new parameters.
+
+| Model Name	| MAE	| MAPE	| RMSE |
+| ----------- | ----------- |  ----------- |  ----------- |
+| XGBoost Regressor | 664.974997	| 0.097529	| 957.774225
+
+## EVALUATE ALGORITHM <p id="evaluate"></p>
+
+This is a very important stage in the project, it has the propose of mapping the results and gains using the model. In this stage the CFO will have the real forecast of how much his stores will invoice for up to six weeks advance. It is also at this stage that I, as a data scientist, manage to generate value for the business already in the first cycle of CRISP.
+
+### Error Interpretation and Translation <p id="error_interpretation"></p>
+
+**Business Performance**
+
+At this stage, I want to show the stakeholder what will be the benefits that my model will bring to the business. My first step is make the sales forecast for each store and save it in a table, then I execute an analysis of the best and worst scenario, telling the sales forecast for a specific store in the best and worse conditions to CFO, helping him in decision making. The table below shows an example of the result obtained for some stores.
+
+| store	| predictions	| worst_scenario	| best_scenario	| MAE	| MAPE |
+| ----------- | ----------- |  ----------- |  ----------- |  ----------- |  ----------- |
+| 693 | 240813.328125	| 240024.588907	| 241602.067343	| 788.739218	| 0.109933
+| 828	| 207616.781250	| 207003.645871	| 208229.916629	| 613.135379	| 0.148970
+|	849	| 293714.906250	| 293029.611223	| 294400.201277	| 685.295027	| 0.079117
+|	443	| 196065.375000	| 195609.338445	| 196521.411555	| 456.036555	| 0.092361
+|	669	| 188986.671875	| 188498.994642	| 189474.349108	| 487.677233	| 0.095376
+
+**Total Performance**
+
+The table below shows in general terms the profit forecast for all Rossmann stores for up to six weeks advance.
+
+| scenario	| value	|
+| ----------- | ----------- |
+| predictions | $285,860,480.00 |	
+| worst_scenario | $285,115,015.78 |
+| best_scenario | $286,605,979.91 |
+
+But, in order to evaluate the error in a general and more reliable way of all stores, I need to analyze what is the MAPE error dispersion, if they present a great dispersion it indicates that our analysis is not very reliable and the forecasts can generate great losses for company. The image below shows the MAPE store error dispersion, we noticed that there are only 2 stores had an error above 50% (outliers), but in general the majority kept in a range of 5% and 17%.
+
+![mape_error](https://user-images.githubusercontent.com/40616142/105593291-9d7f8600-5d71-11eb-8db8-4abb1caf3d4d.png)
+
+**Machine Learning Performance**
+
+The last analysis before putting the model into production is to evaluate the algorithm forecasting performance. The upper left graph shows the sales forecast made by the model and the actual sale value, demonstrating that the forecast follows the sales trend well. The bottom left graph shows the error distribution , the purpose of this graph is to indicate whether the distribution behaves similar to a normal one. The upper right graph indicates the forecasts error rate, tells us if our forecast is underestimating or overestimating the values, the perfect forecast would be a straight line. The bottom right graph is widely used in waste analysis, the ideal graph is that most predictions are within a "tube", and we can see that it satisfies this condition.
+
+![ml_performance](https://user-images.githubusercontent.com/40616142/105599551-50041880-5d73-11eb-8a91-ae1269bbeca9.png)
