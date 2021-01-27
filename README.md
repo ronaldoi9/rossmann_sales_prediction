@@ -24,9 +24,9 @@
     - <a href="#hyperparameter_fine_tuning">Hyperparameter Fine Tuning</a>
   - <a href="#evaluate">Evaluate Algorithm</a>
     - <a href="#error_interpretation">Error Interpretation and Translation</a>
-  - <a href="#deploy">Deploy Model</a>
-    - <a href="#error_interpretation">Deploy Model on Heroku</a>
-  - <a href="#telegram_bot">Telegram Bot</a>
+  - <a href="#deploy">Deploy Model</a>    
+    - <a href="#telegram_bot">Telegram Bot</a>
+- <a href="#conclusion">Conclusion</a>
 --- 
 
 ## BUSINESS QUESTIONS <p id="bquestions"></p>
@@ -350,3 +350,25 @@ But, in order to evaluate the error in a general and more reliable way of all st
 The last analysis before putting the model into production is to evaluate the algorithm forecasting performance. The upper left graph shows the sales forecast made by the model and the actual sale value, demonstrating that the forecast follows the sales trend well. The bottom left graph shows the error distribution , the purpose of this graph is to indicate whether the distribution behaves similar to a normal one. The upper right graph indicates the forecasts error rate, tells us if our forecast is underestimating or overestimating the values, the perfect forecast would be a straight line. The bottom right graph is widely used in waste analysis, the ideal graph is that most predictions are within a "tube", and we can see that it satisfies this condition.
 
 ![ml_performance](https://user-images.githubusercontent.com/40616142/105599551-50041880-5d73-11eb-8a91-ae1269bbeca9.png)
+
+## DEPLOY MODEL <p id="deploy"></p>
+
+In the problem modeling stage on Business Questions, it was decided that the forecast stores sales will be delivery be directly on the CFO's cell phone. To accomplish this task, i used a free cloud-based instant messaging service, Telegram.
+
+
+### Telegram Bot <p id="telegram_bot"></p>
+
+Telegram is a robust messaging service that has several functionalities, we will explore the Message Bot in this project, which will carry out the forecast according to the store specified in the message. For this purpose, an API was built to dispatch store sales forecasts which is available in real time on the Heroku platform (*to learn more about click [here](https://www.heroku.com/)*). To do the Telegram's communication with the API was elaborated a system operating architecture, shown in the figure below.
+
+![telegram_bot_architecture](https://user-images.githubusercontent.com/40616142/105923892-e0648680-601b-11eb-9519-f00a15e3d0b1.png)
+
+The system operation is very simple, the CFO sends a message with the store code that wants to know the forecast for Rossmann API. Then, the API performs the requested store mapping, if found, it is forwarded to the Handler, otherwise an error is throws. The Handler performs the data preparation and prediction, return the prediction value to the API, which returns the message with the sales forecast for up to six weeks advance.
+
+
+![telegram](https://user-images.githubusercontent.com/40616142/105929815-296e0800-6027-11eb-97f4-1814ddfb354a.gif)
+
+## CONCLUSION <p id="conclusion"></p>
+
+This project simulates a large part of the problems faced by companies today, we were able to address several important aspects for solving a problem, such as data cleaning, exploration and modeling, business knowledge and generating insights. Applying Machine Learning algorithms we learned how to evaluate a model using performance metrics, also how to hyperparameter fine tuning to make the model more robust at the prediction time. And for me the most important point is the performance translation into financial gains, being able to identify how much the company will generate revenue in up to six weeks advance is very valuable for decision making. The forecasts delivery in real time directly in the CFO hands was essential to bring agility and practicality in the process, as the person who occupies this position usually does not have much time available.
+
+Bearing in mind that the results obtained in this project are the first CRISP-DS cycle stage adopted in this methodology, we can return to the Business Questions step and extract new information to improve the algorithm performance.
