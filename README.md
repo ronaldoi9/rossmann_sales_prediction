@@ -194,7 +194,7 @@ To analyze the correlation between categorical variables, the Cramer's V method 
 
 ## DATA MODELLING <p id="data_modelling"></p>
 
-A modelagem dos dados é divida em duas etapas que são essenciais para a aplicação dos algoritmos de machine learning. A primeira etapa consiste na Preparação dos Dados e a segunda é a Seleção das Features mais relevantes.
+Data modeling is divided into two stages that are essential for the machine learning algorithms application. The first stage consists of Data Preparation and the second is the Selection of the most relevant Features.
 
 ### Data Preparation <p id="data_preparation"></p>
 
